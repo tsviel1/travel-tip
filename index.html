@@ -7,21 +7,34 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Oz and Tzviki's TravelTip</h1>
-    <label for="text">
-        City:
-        <input type="text">
-        <button class="search">search</button>
-    </label>
-    <div id="map" style="width: 100%; height: 400px;"></div>
-    <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
-    <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
-    <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
-    <button onclick="onPanTo()"class="btn-pan">Pan Map to Tokyo</button>
+    <header class="header-conteiner">
+        <h1>Oz and Tzviki's TravelTip</h1>
 
-    <p>You are at: <span class="user-pos"></span></p>
-    <p>Locations: <span class="locs"></span></p>
-    
+    </header>
+    <main>
+
+        <div id="map" style="width: 100%; height: 400px;"></div>
+        <div class="main-location">
+
+            <label for="text">
+                City:
+                <input type="text">
+                <button class="search">search</button>
+            </label>
+            <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
+            <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
+            <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
+            <button onclick="onPanTo()"class="btn-pan">Pan Map to Tokyo</button>
+            
+            <p>You are at: <span class="user-pos"></span></p>
+            <p>Locations: <span class="locs"></span></p>
+        </div>
+        </main>
+
+    <footer>
+        CaMay22
+    </footer>
+        
 
     <script type="module" src="js/app.controller.js"></script>
 </body>

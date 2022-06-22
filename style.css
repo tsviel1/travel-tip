@@ -1,4 +1,35 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    text-align: center;
+}
+
+.header-conteiner {
+    background-color: beige;
+}
+
+h1 {
+    padding: 20px;
+    margin: 0;
+}
+
+main {
     background-color: lightblue;
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+    display: flex;
+}
+
+#map {
+    width: 40%;
+}
+
+.main-location{
+width: 20%;
+}
+
+footer {
+    padding: 10px;
+    background-color: beige;
 }
