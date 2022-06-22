@@ -7,12 +7,45 @@ window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
 
+
 function onInit() {
     mapService.initMap()
         .then(() => {
             console.log('Map is ready');
+            addListener()
         })
         .catch(() => console.log('Error: cannot init map'));
+
+}
+
+function addListener() {
+    var city = document.querySelector('.search')
+    city.addEventListener('click', goToCity)
+    // var map=document.querySelector('#map')
+    var map = mapService.getMap()
+    console.log(map);
+    map.addListener('click', getLoc)
+}
+
+function getLoc(el) {
+    console.log(el.latLng);
+    let placeName = prompt('enter name')
+    if (!placeName) return
+    const place= creatMarker(placeName, el.latLng)
+    onAddMarker(place.loc)
+}
+
+function creatMarker(name, loc) {
+    return {
+        id: makeId(),
+        name,
+        loc
+    }
+}
+
+function goToCity() {
+    var city = document.querySelector('input').value
+    console.log(city);
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -23,9 +56,9 @@ function getPosition() {
     })
 }
 
-function onAddMarker() {
+function onAddMarker(loc) {
     console.log('Adding a marker');
-    mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
+    mapService.addMarker(loc);
 }
 
 function onGetLocs() {
@@ -50,4 +83,15 @@ function onGetUserPos() {
 function onPanTo() {
     console.log('Panning the Map');
     mapService.panTo(35.6895, 139.6917);
+}
+
+
+
+function makeId(length = 2) {
+    var txt = ''
+    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    for (var i = 0; i < length; i++) {
+        txt += possible.charAt(Math.floor(Math.random() * possible.length))
+    }
+    return txt
 }
