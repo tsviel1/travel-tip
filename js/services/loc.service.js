@@ -11,6 +11,7 @@ const locs = [
 function getLocs() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
+            console.log('what is locs???', locs);
             resolve(locs);
         }, 2000)
     });
