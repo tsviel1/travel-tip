@@ -1,8 +1,11 @@
+import { storageService } from './storage.service.js'
 
 export const locService = {
     getLocs,
-    // _loadToStorage
+    getPlaces
 }
+
+var gPlaces
 
 // function _loadToStorage() {
 //     let loc = storageServise.loadToStorage()
@@ -16,11 +19,19 @@ export const locService = {
 //     { name: 'Neveragain', lat: 32.047201, lng: 34.832581 }
 // ]
 
+
+function getPlaces() {
+    return gPlaces
+
+}
+
 function getLocs() {
+    let places = storageService.loadFromStorage()
+    gPlaces = places
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             // console.log('what is locs???', locs);
-            resolve(storageService.loadFromStorage());
+            resolve(places)
             reject('no location')
         }, 2000)
     });

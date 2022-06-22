@@ -7,6 +7,8 @@ window.onAddMarker = onAddMarker;
 window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
+window.renderTable = renderTable;
+window.onGoPlace = onGoPlace;
 
 
 
@@ -17,11 +19,8 @@ function onInit() {
             addListener()
         })
         .catch(() => console.log('Error: cannot init map'));
-        console.log(storageService.loadFromStorage())
-}
-
-function renderLocation() {
-    let locations = setLoc()
+    // console.log(storageService.loadFromStorage());
+    onGetLocs()
 }
 
 function addListener() {
@@ -69,18 +68,47 @@ function onAddMarker(loc) {
 
 function onGetLocs() {
     locService.getLocs()
-        .then(locs => {
-            console.log('Locations:', locs)
-            document.querySelector('.locs').innerText = JSON.stringify(locs)
-        })
+        .then(renderTable)
 }
+
+function renderTable(places) {
+    console.log(places);
+    var str = ''
+    for (const key in places) {
+        let id = places[key].id
+        let loc = places[key].loc
+        str += `<div class="place">${key}</div>
+         <button id="${id}" class="delete" onclick="onRemovePlace()">Delete</button>
+            <button id="${id}" class="go" onclick="onGoPlace(this)" data-loc="${loc}">Go</button>`
+    }
+    document.querySelector('.palces-conteiner').innerHTML = str
+    renderMarkers(places)
+}
+
+function renderMarkers(places) {
+    for (const key in places) {
+        mapService.addMarker(places[key].loc)
+    }
+}
+
+// function onRemovePlace() {
+//     console.log(333);
+// }
+
+function onGoPlace(el) {
+    console.log(el.id);
+    //   let places=locService.getPlaces()
+    let pos = document.querySelector(`#${el.id}`).dataset.loc
+    mapService.panTo(pos)
+}
+
 
 function onGetUserPos() {
     getPosition()
         .then(pos => {
             console.log('User position is:', pos.coords);
             document.querySelector('.user-pos').innerText =
-                `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
+                `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude} `
         })
         .catch(err => {
             console.log('err!!!', err);

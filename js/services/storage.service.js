@@ -15,7 +15,7 @@ function saveToStorage(val, KEY = 'placeDB') {
 
 function loadFromStorage(KEY = 'placeDB') {
     const str = localStorage.getItem(KEY)
-    console.log(str);
+    // console.log(str);
     return JSON.parse(str)
 }
 

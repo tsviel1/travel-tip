@@ -21,6 +21,11 @@ main {
     display: flex;
 }
 
+.palces-conteiner{
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+}
+
 /* #map {
     width: 40%;
 } */
