@@ -1,21 +1,21 @@
 
-export const storageServise = {
+export const storageService = {
     saveToStorage,
-    loadToStorage
+    loadFromStorage
 }
 
 
 function saveToStorage(val, KEY = 'placeDB') {
-    let places = loadToStorage()
+    let places = loadFromStorage()
     if (!places) places = {}
     places[val.name] = val
     const str = JSON.stringify(places)
     localStorage.setItem(KEY, str)
 }
 
-function loadToStorage(KEY = 'placeDB') {
+function loadFromStorage(KEY = 'placeDB') {
     const str = localStorage.getItem(KEY)
-    // return str
+    console.log(str);
     return JSON.parse(str)
 }
 

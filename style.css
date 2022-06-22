@@ -21,12 +21,13 @@ main {
     display: flex;
 }
 
-#map {
+/* #map {
     width: 40%;
-}
+} */
 
-.main-location{
-width: 20%;
+.main-location {
+    /* padding: 20px; */
+    /* width: 20%; */
 }
 
 footer {

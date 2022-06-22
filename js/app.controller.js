@@ -1,6 +1,6 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
-import { storageServise } from './services/storage.servise.js'
+import { storageService } from './services/storage.service.js'
 
 window.onload = onInit;
 window.onAddMarker = onAddMarker;
@@ -17,14 +17,17 @@ function onInit() {
             addListener()
         })
         .catch(() => console.log('Error: cannot init map'));
+        console.log(storageService.loadFromStorage())
+}
 
+function renderLocation() {
+    let locations = setLoc()
 }
 
 function addListener() {
     var city = document.querySelector('.search')
     city.addEventListener('click', goToCity)
     var map = mapService.getMap()
-    console.log(map);
     map.addListener('click', getLoc)
 }
 
@@ -33,7 +36,7 @@ function getLoc(el) {
     let placeName = prompt('enter name')
     if (!placeName) return
     const place = creatMarker(placeName, el.latLng)
-    storageServise.saveToStorage(place)
+    storageService.saveToStorage(place)
     onAddMarker(place.loc)
 }
 
