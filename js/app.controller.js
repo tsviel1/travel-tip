@@ -1,11 +1,13 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
+import { storageServise } from './services/storage.servise.js'
 
 window.onload = onInit;
 window.onAddMarker = onAddMarker;
 window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
+
 
 
 function onInit() {
@@ -21,7 +23,6 @@ function onInit() {
 function addListener() {
     var city = document.querySelector('.search')
     city.addEventListener('click', goToCity)
-    // var map=document.querySelector('#map')
     var map = mapService.getMap()
     console.log(map);
     map.addListener('click', getLoc)
@@ -31,7 +32,8 @@ function getLoc(el) {
     console.log(el.latLng);
     let placeName = prompt('enter name')
     if (!placeName) return
-    const place= creatMarker(placeName, el.latLng)
+    const place = creatMarker(placeName, el.latLng)
+    storageServise.saveToStorage(place)
     onAddMarker(place.loc)
 }
 
@@ -39,7 +41,8 @@ function creatMarker(name, loc) {
     return {
         id: makeId(),
         name,
-        loc
+        loc,
+        createdAt: Date.now()
     }
 }
 
